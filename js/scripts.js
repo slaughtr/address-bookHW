@@ -4,15 +4,22 @@ function Contact(first, last) {
   this.lastName = last;
 }
 
+Contact.prototype.fullName = function() {
+  return this.firstName + " " + this.lastName;
+}
+
 // user interface logic
 $(document).ready(function() {
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
-    var inputtedFirstName = $("input#new-first-name").val();
-    var inputtedLastName = $("input#new-last-name").val();
-    var newContact = new Contact(inputtedFirstName, inputtedLastName);
+    var firstName = $("input#new-first-name").val();
+    var lastName = $("input#new-last-name").val();
+    var address = $("input#new-address").val();
+    var phoneNumber = $("input#new-phoneNumber").val();
+    var pictureURL = $("input#pictureURL").val();
+    var newContact = new Contact(firstName, lastName, address, phoneNumber, pictureURL);
 
-    $("ul#contacts").append("<li><span class='contact'>" + newContact.firstName + "</span></li>");
+    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
     $(".contact").last().click(function() {
       $("#show-contact").show();
       $("#show-contact h2").text(newContact.firstName);
